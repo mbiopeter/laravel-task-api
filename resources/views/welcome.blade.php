@@ -36,7 +36,7 @@
         .copy-btn:active { transform: scale(0.9); transition: 0.1s; }
     </style>
 </head>
-<body class="bg-[#0b0f1a] text-slate-300 selection:bg-indigo-500/30 bg-mesh min-h-screen">
+<body class="bg-[#0b0f1a] text-slate-300 selection:bg-indigo-500/30 bg-mesh min-h-screen overflow-x-hidden">
 
     <nav class="sticky top-0 z-50 border-b border-white/5 bg-[#0b0f1a]/80 backdrop-blur-md">
         <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
