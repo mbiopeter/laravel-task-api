@@ -44,6 +44,16 @@ DB_PASSWORD=your password
 Run Project Locally
 php artisan serve
 
+5. Hosting
+  **MySQL Database**  
+   - Created a MySQL service on Railway.  
+   - Note down the host, database name, username, and password and connected with mysql workbench.  
+ **Laravel Application**  
+   - Deployed the Laravel project on Railway.  
+   - Set environment variables in `.env` with the MySQL credentials.  
+   - Run migrations: `php artisan migrate`  
+   - (Optional) Seed the database: `php artisan db:seed`  
+
 Base URL:
 Locally:http://127.0.0.1:8000
 deployed:https://laravel-task-api-production.up.railway.app
