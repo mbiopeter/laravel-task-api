@@ -323,7 +323,7 @@ Expected:
             </div>
             <div class="flex items-center gap-8 text-[10px] font-bold text-slate-500 uppercase tracking-[0.2em]" data-aos="fade-left">
                 <span>March 2026</span>
-                <span class="px-2 py-1 bg-white/5 rounded border border-white/10">v1.0.4 Production</span>
+                <span class="px-2 py-1 bg-white/5 rounded border border-white/10">v1.0.0 Production</span>
             </div>
         </footer>
 
