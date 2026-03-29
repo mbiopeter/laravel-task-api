@@ -58,7 +58,7 @@
     <main class="max-w-7xl mx-auto px-6 py-12">
 
         <section class="mb-24 text-center max-w-3xl mx-auto" data-aos="fade-up">
-            <h1 class="text-6xl font-extrabold text-white mb-6 tracking-tight leading-[1.1]">Task Management API</h1>
+            <h1 class="text-4xl md:text-6xl font-extrabold text-white mb-6 tracking-tight leading-[1.1]">Task Management API</h1>
             <p class="text-lg text-slate-400 mb-10 leading-relaxed">Laravel backend with strict task lifecycle management, duplicate prevention, and daily reporting.</p>
             <div class="flex flex-wrap justify-center gap-3">
                 <span class="px-4 py-2 rounded-full bg-white/5 border border-white/10 text-xs font-mono">Laravel 10+</span>
