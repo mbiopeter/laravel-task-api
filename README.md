@@ -45,7 +45,8 @@ Run Project Locally
 php artisan serve
 
 Base URL:
-http://127.0.0.1:8000
+Locally:http://127.0.0.1:8000
+deployed:https://laravel-task-api-production.up.railway.app
 
 API Endpoints
 
