@@ -52,34 +52,37 @@ class TaskController extends Controller
     // LIST
     public function index(Request $request){
         try {
-            $request->whenHas('status', function ($value) use ($request) {
-                $request->validate([
-                    'status' => ['in:' . implode(',', self::STATUS_FLOW)]
-                ], [
-                    'status.in' => 'Invalid Filter. Allowed values: ' . implode(', ', self::STATUS_FLOW)
-                ]);
-            });
-
-            $query = Task::query();
-
-            if ($request->filled('status')) {
-                $query->where('status', $request->status);
+            // Validate status query parameter if present
+            $status = $request->query('status');
+            if ($status !== null && !in_array($status, self::STATUS_FLOW, true)) {
+                return $this->errorResponse(
+                    'Invalid status filter',
+                    422,
+                    ['valid_options' => self::STATUS_FLOW]
+                );
             }
 
+            // Build the query
+            $query = Task::query();
+
+            if ($status !== null) {
+                $query->where('status', $status);
+            }
+
+            // Fetch tasks ordered by priority and due date
             $tasks = $query
                 ->orderByRaw("FIELD(priority, 'high', 'medium', 'low')")
                 ->orderBy('due_date')
                 ->get();
 
+            // Return response
             return response()->json([
                 'message' => $tasks->isEmpty() ? 'No tasks found' : 'Tasks retrieved successfully',
                 'data' => $tasks
             ], 200);
 
-        } catch (\Illuminate\Validation\ValidationException $e) {
-            return $this->errorResponse('Invalid Filter', 422, ['valid_options' => self::STATUS_FLOW]);
-
         } catch (\Throwable $e) {
+            // Catch-all for any unexpected errors
             return $this->serverErrorResponse($e);
         }
     }
