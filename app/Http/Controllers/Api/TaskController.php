@@ -18,7 +18,7 @@ class TaskController extends Controller
             ->exists();
 
         if ($exists) {
-            return response()->json(['error' => 'Duplicate task'], 422);
+            return response()->json(['error' => 'This Task is a Duplicated '], 422);
         }
 
         $task = Task::create($request->validated());
@@ -51,13 +51,13 @@ class TaskController extends Controller
             $task = Task::lockForUpdate()->findOrFail($id);
             $newStatus = $request->status;
 
-            // Define  order
+            // Define acceptable order
             $flow = ['pending', 'in_progress', 'done'];
 
             $currentIndex = array_search($task->status, $flow);
             $newIndex = array_search($newStatus, $flow);
 
-            // Invalid status value (extra safety)
+            // Invalid status value
             if ($newIndex === false) {
                 return response()->json([
                     'error' => 'Invalid status value'
@@ -71,7 +71,7 @@ class TaskController extends Controller
                 ], 422);
             }
 
-            // Skip statsu (jumping forward more than 1 step)
+            // Skip status (jumping forward more than 1 step)
             if ($newIndex > $currentIndex + 1) {
                 return response()->json([
                     'error' => 'Cannot skip status progression'
@@ -100,6 +100,7 @@ class TaskController extends Controller
     public function destroy($id){
         $task = Task::findOrFail($id);
 
+        //deny deletion of undone tasks
         if ($task->status !== 'done') {
             return response()->json(['error' => 'Only done tasks can be deleted'], 403);
         }
@@ -134,6 +135,7 @@ class TaskController extends Controller
 
         $summary = [];
 
+        //order by priority(high -> medium -> low) fast then by status
         foreach ($priorities as $p) {
             foreach ($statuses as $s) {
                 $summary[$p][$s] = $tasks
