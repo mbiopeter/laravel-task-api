@@ -12,18 +12,27 @@ use App\Http\Requests\UpdateTaskStatusRequest;
 class TaskController extends Controller
 {
     // CREATE
-    public function store(StoreTaskRequest $request){
-        $exists = Task::where('title', $request->title)
-            ->where('due_date', $request->due_date)
+    public function store(StoreTaskRequest $request)
+    {
+        $data = $request->validated();
+
+        // Check for duplicate task (same title + due_date)
+        $exists = Task::where('title', $data['title'])
+            ->whereDate('due_date', $data['due_date'])
             ->exists();
 
         if ($exists) {
-            return response()->json(['error' => 'This Task is a Duplicated '], 422);
+            return response()->json([
+                'error' => 'A task with the same title and due date already exists.'
+            ], 422);
         }
 
-        $task = Task::create($request->validated());
+        $task = Task::create($data);
 
-        return response()->json($task, 201);
+        return response()->json([
+            'message' => 'Task created successfully',
+            'data' => $task
+        ], 201);
     }
 
     // LIST
