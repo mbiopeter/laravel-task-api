@@ -37,7 +37,10 @@ Run the following commands to set up the schema and populate initial data:<br>
 php artisan migrate<br>
 php artisan db:seed<br>
 
-## 4. Local Development
+## 4. install packages
+composer install
+
+## 5.Local Development
 Start the development server:<br><br>
 
 php artisan serve<br>
